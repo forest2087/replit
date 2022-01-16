@@ -1,2 +1,2 @@
 language = "c++"
-run = ""
+run = "g++ ./leet/dp_study_plan/part1.cpp ; ./a.out"
