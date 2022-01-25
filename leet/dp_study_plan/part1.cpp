@@ -176,7 +176,90 @@ int solv1137(int n) {
 }
 
 int solv70(int n) {
+    if (n==0) return 0;
+    if (n==1) return 1;
 
+    vector<int> dp(n+1);
+    dp[0] = 1;
+    dp[1] = 1;
+
+    for (int i = 2; i<=n; i++) {
+        dp[i] = dp[i-2] + dp[i-1];
+    }
+
+    return dp[n];
+    
+}
+
+int solv746(vector<int> cost) {
+    int n = cost.size();
+
+    vector<int> dp(n+1);
+    for (int i = 2; i<=n; i++) {
+        dp[i] = min(dp[i-2] + cost[i-2], dp[i-1]+cost[i-1]);
+    }
+
+// walkVector(dp);
+    return dp[n];
+}
+
+int solv198(vector<int> nums) {
+    int n = nums.size();
+
+    if (n==1) return nums[0];
+    if (n==2) return max(nums[0], nums[1]);
+
+    vector<int> dp(n); 
+    dp[0] = nums[0];
+    dp[1] = max(nums[0], nums[1]);
+    for (int i = 2; i<n; i++) {
+        dp[i] = max(dp[i-2]+nums[i], dp[i-1]);
+    }
+
+    return dp[n-1];
+
+}
+
+int solv213_helper(vector<int> nums, int l, int r) {
+    // size always > 2
+    vector<int> dp(r-l);
+    dp[0] = nums[l];
+    dp[1] = max(nums[l], nums[l+1]);
+    for (int i = 2; i<r; i++) {
+        dp[i] = max(dp[i-2]+nums[l+i], dp[i-1]);
+    }
+
+    return dp[r-1];
+}
+
+int solv213(vector<int> nums) {
+    // two scenario
+    // 0...n-1
+    // 1...n
+
+    int n = nums.size();
+    if (n==1) return nums[0];
+    if (n==2) return max(nums[0], nums[1]);
+    return max(solv213_helper(nums, 0, n-1), solv213_helper(nums, 1, n));
+}
+
+int solv746_helper(vector<int> nums, int curr, int ans) { 
+
+    int n = nums.size();
+    vector<int> new_nums;
+    for (auto i: nums) {
+        if (i!=nums[curr] || i!=nums[curr]+1 || i!=nums[curr]-1)
+            new_nums.push_back(i);
+    }
+
+}
+
+int solv746(vector<int> nums) {
+    
+    int n = nums.size();
+    int ans = solv746_helper(nums, n, 0);
+
+    return ans
 }
 
 int main()
@@ -196,6 +279,18 @@ int main()
         {1, 1, 0,0,0},
         {1, 1, 1, 1, 1},
     };
+
+
+    //746
+    vector<int> v746={3,4,2};
+    // vector<int> v746={2,2,3,3,3,4};
+    print(solv746(v746));
+
+
+    //213
+    // vector<int> v213={2, 3, 2};
+    // vector<int> v213={1, 2, 3, 1};
+    // print(solv213(v213));
 
     // int ans = solv(12, m1);
     // int ans = solv(11, m1);
@@ -220,13 +315,20 @@ int main()
     // print(solv1137(25));
 
     //70
-    print(solv70(0));
-    print(solv70(3));
-    print(solv70(30));
+    // print(solv70(0));
+    // print(solv70(3));
+    // print(solv70(20));
 
     //746
+    // vector<int> v746 = {10, 15, 20};
+    // vector<int> v746 = {1,100,1,1,1,100,1,1,100,1};
+    // print(solv746(v746));
 
     //198
+    // vector<int> v198={1, 2, 3, 1};
+    // vector<int> v198={2,7,9,3,1};
+    // print(solv198(v198));
+
 
 
     auto end = chrono::steady_clock::now();
