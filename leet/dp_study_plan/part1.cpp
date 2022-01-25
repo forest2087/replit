@@ -243,7 +243,7 @@ int solv213(vector<int> nums) {
     return max(solv213_helper(nums, 0, n-1), solv213_helper(nums, 1, n));
 }
 
-int solv746_helper(vector<int> nums, int curr, int ans) { 
+int solv740_helper(vector<int> nums, int curr, int ans) { 
 
     int n = nums.size();
     vector<int> new_nums;
@@ -254,10 +254,10 @@ int solv746_helper(vector<int> nums, int curr, int ans) {
 
 }
 
-int solv746(vector<int> nums) {
+int solv740(vector<int> nums) {
     
     int n = nums.size();
-    int ans = solv746_helper(nums, n, 0);
+    int ans = solv740_helper(nums, n, 0);
 
     return ans
 }
@@ -281,10 +281,10 @@ int main()
     };
 
 
-    //746
-    vector<int> v746={3,4,2};
-    // vector<int> v746={2,2,3,3,3,4};
-    print(solv746(v746));
+    //740
+    // vector<int> v740={3,4,2};
+    // vector<int> v740={2,2,3,3,3,4};
+    // print(solv740(v740));
 
 
     //213
