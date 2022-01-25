@@ -259,7 +259,7 @@ int solv740(vector<int> nums) {
     int n = nums.size();
     int ans = solv740_helper(nums, n, 0);
 
-    return ans
+    return ans;
 }
 
 int main()
@@ -282,9 +282,9 @@ int main()
 
 
     //740
-    // vector<int> v740={3,4,2};
+    vector<int> v740={3,4,2};
     // vector<int> v740={2,2,3,3,3,4};
-    // print(solv740(v740));
+    print(solv740(v740));
 
 
     //213
