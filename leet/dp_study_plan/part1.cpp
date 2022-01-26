@@ -243,23 +243,38 @@ int solv213(vector<int> nums) {
     return max(solv213_helper(nums, 0, n-1), solv213_helper(nums, 1, n));
 }
 
-int solv740_helper(vector<int> nums, int curr, int ans) { 
+int solv740_helper(vector<int> nums) { 
+    // this is same as the robber helper
 
     int n = nums.size();
-    vector<int> new_nums;
-    for (auto i: nums) {
-        if (i!=nums[curr] || i!=nums[curr]+1 || i!=nums[curr]-1)
-            new_nums.push_back(i);
-    }
-
+    return solv213_helper(nums, 0, n);
+    
 }
 
 int solv740(vector<int> nums) {
-    
-    int n = nums.size();
-    int ans = solv740_helper(nums, n, 0);
+
+    // https://leetcode-cn.com/problems/delete-and-earn/solution/ru-guo-ni-li-jie-liao-da-jia-jie-she-zhe-ti-ni-ken/
+
+    // if we select n, then n-1 and n+1 cannot be selected, this is the same as the robber cannot steal consecutive houses question
+    // int n = nums.size();
+
+    // since the constraint is
+    // 1 <= nums[i] <= 10^4
+    // vector<int> new_nums(10001, 0);
+
+    // optimized to be 
+    int n = *max_element(nums.begin(), nums.end()) + 1;
+    vector<int> new_nums(n, 0);
+
+    for (auto i: nums) {
+        new_nums[i]+=i;
+    }
+
+    // walkVector(new_nums);
+    int ans = solv740_helper(new_nums);
 
     return ans;
+    // return 0;
 }
 
 int main()
@@ -282,8 +297,8 @@ int main()
 
 
     //740
-    vector<int> v740={3,4,2};
-    // vector<int> v740={2,2,3,3,3,4};
+    // vector<int> v740={3,4,2};
+    vector<int> v740={2,2,3,3,3,4};
     print(solv740(v740));
 
 
