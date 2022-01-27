@@ -277,6 +277,19 @@ int solv740(vector<int> nums) {
     // return 0;
 }
 
+bool solv55(vector<int>& nums) {
+    int n = nums.size();
+
+    int farthest = 0;
+    for (int i = 0; i<n-1; i++) {
+        farthest = max(farthest, nums[i]+i); 
+        // if stuck 0, it can't go any further
+        if (farthest <= i) return false;
+    }
+    return farthest>=n-1;
+}
+
+
 int main()
 {
     auto start = chrono::steady_clock::now();
@@ -295,11 +308,16 @@ int main()
         {1, 1, 1, 1, 1},
     };
 
+    //55
+    //vector<int> v55={2,3,1,1,4};
+    // vector<int> v55={3,2,1,0,4};
+    vector<int> v55={3,2,1,0,4,12, 2, 1, 2, 3, 4};
+    print(solv55(v55));
 
     //740
     // vector<int> v740={3,4,2};
-    vector<int> v740={2,2,3,3,3,4};
-    print(solv740(v740));
+    // vector<int> v740={2,2,3,3,3,4};
+    // print(solv740(v740));
 
 
     //213
