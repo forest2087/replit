@@ -290,6 +290,42 @@ bool solv55(vector<int>& nums) {
 }
 
 
+int solv45(vector<int>& nums) {
+    int n = nums.size();
+
+    int end = 0, farthest = 0;
+    int jumps = 0;
+
+    for (int i = 0; i<n-1; i++) {
+
+        watch(i);
+        farthest = max(farthest, nums[i]+i);
+        watch(farthest);
+        // assume can always reach the last index, no need to test whether it gets stuck
+        if (end == i) {
+            c('end == i')
+            jumps++;
+            end = farthest;
+        }
+        watch(jumps);
+        watch(farthest);
+    }
+    return jumps;
+}
+
+int solv53(vector<int> &nums) {
+    int n = nums.size(), dp[n];
+    dp[0]= nums[0];
+    int ret = dp[0];
+
+    for (int i = 1; i<n; i++) {
+        dp[i] = max(dp[i-1]+nums[i], nums[i]);
+        ret = max(ret, dp[i]);
+    }
+
+    return ret;
+}
+
 int main()
 {
     auto start = chrono::steady_clock::now();
@@ -308,11 +344,35 @@ int main()
         {1, 1, 1, 1, 1},
     };
 
+
+    //918 
+    // kadane + circular max subarray
+    
+    
+    //53
+    vector<int> v53 = {
+        -2,
+        1,
+        -3,
+        4,
+        -1,
+        2,
+        1,
+        -5,
+        4,
+    };
+    print(solv53(v53)); 
+
+    //45
+    // vector<int> v45={2,3,1,1,4};
+    // print(solv45(v45));
+
+
     //55
     //vector<int> v55={2,3,1,1,4};
     // vector<int> v55={3,2,1,0,4};
-    vector<int> v55={3,2,1,0,4,12, 2, 1, 2, 3, 4};
-    print(solv55(v55));
+    // vector<int> v55={3,2,1,0,4,12, 2, 1, 2, 3, 4};
+    // print(solv55(v55));
 
     //740
     // vector<int> v740={3,4,2};
