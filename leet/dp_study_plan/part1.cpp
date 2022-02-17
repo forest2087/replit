@@ -313,6 +313,8 @@ int solv45(vector<int>& nums) {
     return jumps;
 }
 
+// maximum subarray
+// can also use kadane
 int solv53(vector<int> &nums) {
     int n = nums.size(), dp[n];
     dp[0]= nums[0];
@@ -321,6 +323,57 @@ int solv53(vector<int> &nums) {
     for (int i = 1; i<n; i++) {
         dp[i] = max(dp[i-1]+nums[i], nums[i]);
         ret = max(ret, dp[i]);
+    }
+
+    return ret;
+}
+
+
+// maximum sum circular subarray
+int solv918(vector<int> &nums) {
+    // two possibilities 
+    // 1 - non circular
+    // 2 - circular - wrap around - 3 parts in linear array, first and third selected
+
+    // for scenario 2 - find second part in the middle first - invert signs and find max subarray - then find sum of all array then subtract part 2 sum - -(part 2)
+
+    // last part is to compare noncircular vs circular
+
+    // edge case... if all numberes are negative
+
+    int noncircular = solv53(nums); 
+
+    int sum= 0; 
+    for (auto i: nums) 
+        sum+=i; 
+    
+    vector<int> inverted;
+    for (auto i: nums) 
+        inverted.push_back(-i); 
+    
+    int part2 = solv53(inverted); 
+
+    int circular = sum + part2;
+
+    // edge case - all negative numbers
+    if (circular==0) return noncircular;
+
+    return max(noncircular, circular); 
+}
+
+// max product subarray
+int solv152(vector<int> &nums) {
+    int n = nums.size(), dmin[n], dmax[n], ret=INT8_MIN;
+    dmin[0] = nums[0];
+    dmax[0] = nums[0];
+    
+
+    for (int i = 1; i<n; i++) {
+        // need to keep track of the min to account for negative numbers -*- => +
+        dmin[i] = min({dmin[i-1]*nums[i], dmax[i-1]*nums[i], nums[i]}); 
+        dmax[i] = max({dmin[i-1]*nums[i], dmax[i-1]*nums[i], nums[i]}); 
+
+        ret = max(ret, dmax[i]);
     }
 
     return ret;
@@ -345,23 +398,30 @@ int main()
     };
 
 
+    //152
+    // vector<int> v152={2,3,-2,4};
+    // print(solv152(v152));
+
     //918 
     // kadane + circular max subarray
-    
+    // vector<int> v918={1, -2, 3, -2};
+    // vector<int> v918={5, -2, 5};
+    vector<int> v918={-2, -3, -2};
+    print(solv918(v918));
     
     //53
-    vector<int> v53 = {
-        -2,
-        1,
-        -3,
-        4,
-        -1,
-        2,
-        1,
-        -5,
-        4,
-    };
-    print(solv53(v53)); 
+    // vector<int> v53 = {
+    //     -2,
+    //     1,
+    //     -3,
+    //     4,
+    //     -1,
+    //     2,
+    //     1,
+    //     -5,
+    //     4,
+    // };
+    // print(solv53(v53)); 
 
     //45
     // vector<int> v45={2,3,1,1,4};
