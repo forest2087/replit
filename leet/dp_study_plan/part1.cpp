@@ -397,6 +397,12 @@ int main()
         {1, 1, 1, 1, 1},
     };
 
+    //1014
+    
+    
+    //1567
+
+
 
     //152
     // vector<int> v152={2,3,-2,4};
@@ -406,8 +412,8 @@ int main()
     // kadane + circular max subarray
     // vector<int> v918={1, -2, 3, -2};
     // vector<int> v918={5, -2, 5};
-    vector<int> v918={-2, -3, -2};
-    print(solv918(v918));
+    // vector<int> v918={-2, -3, -2};
+    // print(solv918(v918));
     
     //53
     // vector<int> v53 = {
